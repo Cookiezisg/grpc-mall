@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package microshopping;
+
+option go_package = "./proto;microshopping";
+
+// ------------------------------- 货币服务 -------------------------------
+
+// 货币服务定义
+service CurrencyService {
+
+    // 获取支持的货币
+    rpc GetSupportedCurrencies(Empty) returns (GetSupportedCurrenciesResponse) {}
+
+    // 转换货币
+    rpc Convert(CurrencyConversionRequest) returns (Money) {}
+}
+
+message Empty {}
+
+message Money {
+    string currency_code = 1; // 货币代码，例如 "USD", "EUR"
+    int64 units = 2; // 整数部分
+    int32 nanos = 3; // 小数部分，范围 -999,999,999 到 +999,999,999
+}
+
+message GetSupportedCurrenciesResponse {
+    repeated string currency_codes = 1; // 支持的货币代码列表
+}
+
+message CurrencyConversionRequest {
+    Money from = 1; // 源货币金额
+    string to_code = 2; // 目标货币代码
+}
