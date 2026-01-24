@@ -41,7 +41,7 @@ func (s *CurrencyService) GetSupportedCurrencies(ctx context.Context, in *pb.Emp
 	return out, nil
 }
 
-func (s *CurrencyService) ConvertCurrency(ctx context.Context, in *pb.CurrencyConversionRequest) (out *pb.Money, e error) {
+func (s *CurrencyService) Convert(ctx context.Context, in *pb.CurrencyConversionRequest) (out *pb.Money, e error) {
 	// 实现货币转换逻辑
 	data, error := os.ReadFile("data/currency_conversion.json")
 
