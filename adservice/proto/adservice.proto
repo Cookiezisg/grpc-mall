@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package microshopping;
+
+option go_package = "./proto;microshopping";
+
+// ---------------广告服务 Ad Service----------------
+service AdService {
+    // 获取广告
+    rpc GetAds(AdRequest) returns (AdResponse) {}
+}
+
+message AdRequest {
+    repeated string context_keys = 1;
+}
+
+message AdResponse {
+    repeated Ad ads = 1;
+}
+
+message Ad {
+    string redirect_url = 1;
+    string text = 2;
+}
