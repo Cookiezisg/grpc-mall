@@ -33,6 +33,12 @@ func main() {
 		Name:    "productcatalogservice",
 		Address: ADDRESS,
 		Port:    PORT,
+		Check: &api.AgentServiceCheck{
+			TCP:                            ipport,
+			Interval:                       "5s",
+			Timeout:                        "3s",
+			DeregisterCriticalServiceAfter: "10s",
+		},
 	}
 
 	// 注册grpc服务到consul上
@@ -58,11 +64,11 @@ func main() {
 	defer listien.Close()
 
 	// 启动服务
-	fmt.Println("服务启动成功...")
+	fmt.Printf("商品服务已启动，监听端口: %d\n", PORT)
 
 	err_grpc := grpcServer.Serve(listien)
 	if err_grpc != nil {
-		fmt.Println("grpc服务启动报错:", err)
+		fmt.Println("grpc服务启动报错:", err_grpc)
 		return
 	}
 }
